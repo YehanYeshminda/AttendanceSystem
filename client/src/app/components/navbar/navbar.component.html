@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-light">
+<nav class="navbar navbar-expand-sm">
   <div class="container-fluid">
     <div class="image-container" routerLink="/">
       <img
@@ -19,7 +19,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4">
+      <ul class="navbar-nav me-auto pt-5 mb-lg-0 ms-4 ms-sm-0 ms-md-3">
         <li class="nav-item">
           <a
             class="nav-link"
@@ -51,13 +51,14 @@
 
       <div
         *ngIf="currentUser$ | async as user"
-        class="justify-content-sm-center justify-content-start"
+        class="justify-content-sm-center justify-content-start pt-0 pt-sm-5 ms-0 ms-sm-5 ms-md-0"
       >
-        <div class="mt-0 mt-sm-3">
-          Logged as : <span class="fw-bold">{{ user.userName }}</span>
+        <div class="mt-0 ms-4 ms-sm-0 mt-sm-3 me-3">
+          Username:
+          <span class="fw-bold ms-0 ms-sm-3 ms-md-0">{{ user.userName }}</span>
         </div>
       </div>
-      <div class="ms-0 ms-sm-4">
+      <div class="ms-4 ms-sm-3 ms-md-0 pt-0 pt-sm-5">
         <div class="btn btn-primary btn-md mt-3" (click)="logout()">LogOut</div>
       </div>
     </div>
