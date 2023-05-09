@@ -1,0 +1,215 @@
+<div class="item-container container mt-5">
+  <form
+    [formGroup]="employeeForm"
+    (ngSubmit)="employeeForm.valid && createEmployee()"
+  >
+    <div class="row mb-3">
+      <div class="col-8">
+        <label class="fw-bold" for="regNo">RegNo</label>
+        <input
+          type="text"
+          id="regNo"
+          class="form-control add-border-input"
+          formControlName="regNo"
+        />
+      </div>
+
+      <div
+        *ngIf="
+          employeeForm.get('regNo')?.invalid &&
+          (employeeForm.get('regNo')?.dirty ||
+            employeeForm.get('regNo')?.touched)
+        "
+      >
+        <div
+          class="text-danger"
+          *ngIf="employeeForm.get('regNo')?.errors?.['required']"
+        >
+          RegNo is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-8">
+        <label for="enrollNo" class="fw-bold">EnrollNo</label>
+        <input
+          type="text"
+          id="enrollNo"
+          class="form-control add-border-input"
+          formControlName="enrollNo"
+        />
+
+        <div
+          *ngIf="
+            employeeForm.get('enrollNo')?.invalid &&
+            (employeeForm.get('enrollNo')?.dirty ||
+              employeeForm.get('enrollNo')?.touched)
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="employeeForm.get('enrollNo')?.errors?.['required']"
+          >
+            Enroll No is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-8">
+        <label for="username" class="fw-bold">Username</label>
+        <input
+          type="text"
+          id="username"
+          class="form-control add-border-input"
+          formControlName="username"
+        />
+
+        <div
+          *ngIf="
+            employeeForm.get('username')?.invalid &&
+            (employeeForm.get('username')?.dirty ||
+              employeeForm.get('username')?.touched)
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="employeeForm.get('username')?.errors?.['required']"
+          >
+            Username No is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-8">
+        <label for="designation" class="fw-bold">Designation</label>
+        <input
+          type="text"
+          id="designation"
+          class="form-control add-border-input"
+          formControlName="designation"
+        />
+
+        <div
+          *ngIf="
+            employeeForm.get('designation')?.invalid &&
+            (employeeForm.get('designation')?.dirty ||
+              employeeForm.get('designation')?.touched)
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="employeeForm.get('designation')?.errors?.['required']"
+          >
+            Designation No is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-8">
+        <label for="dateOfJoin" class="fw-bold">Date Of Join</label>
+        <input
+          type="date"
+          id="dateOfJoin"
+          class="form-control add-border-input"
+          formControlName="dateOfJoin"
+        />
+
+        <div
+          *ngIf="
+            employeeForm.get('dateOfJoin')?.invalid &&
+            (employeeForm.get('dateOfJoin')?.dirty ||
+              employeeForm.get('dateOfJoin')?.touched)
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="employeeForm.get('dateOfJoin')?.errors?.['required']"
+          >
+            Date-Of-Join is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-8">
+        <label for="dateOfBirth" class="fw-bold">Date Of Birth</label>
+        <input
+          type="date"
+          id="dateOfBirth"
+          class="form-control add-border-input"
+          formControlName="dateOfBirth"
+        />
+
+        <div
+          *ngIf="
+            employeeForm.get('dateOfBirth')?.invalid &&
+            (employeeForm.get('dateOfBirth')?.dirty ||
+              employeeForm.get('dateOfBirth')?.touched)
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="employeeForm.get('dateOfBirth')?.errors?.['required']"
+          >
+            Date-Of-Birth is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3 mt-4">
+      <div class="col-8 d-flex gap-4">
+        <div class="form-check">
+          <input
+            type="radio"
+            id="inactiveStatus"
+            class="form-check-input"
+            formControlName="status"
+            value="0"
+          />
+          <label class="form-check-label fw-bold" for="inactiveStatus"
+            >Active</label
+          >
+        </div>
+        <div class="form-check">
+          <input
+            type="radio"
+            id="activeStatus"
+            class="form-check-input"
+            formControlName="status"
+            value="1"
+          />
+          <label class="form-check-label fw-bold" for="activeStatus"
+            >In-Active</label
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3 mt-3">
+      <div class="col-8">
+        <label class="fw-bold">Employee Picture:</label>
+        <input
+          type="file"
+          class="ms-1"
+          (change)="onFileSelected($event)"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="row mb-3 mt-3">
+      <div class="col-8">
+        <button type="submit" class="btn btn-primary">Add Employee</button>
+      </div>
+    </div>
+  </form>
+</div>

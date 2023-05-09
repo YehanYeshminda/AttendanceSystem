@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-sm bg-light">
+  <div class="container-fluid">
+    <div class="image-container" routerLink="/">
+      <img
+        src="./assets/logo.png"
+        class="img-fluid img-thumbnail w-100"
+        alt="logo"
+      />
+    </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/"
+            >Home</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/daily"
+            >Daily</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/monthly"
+            >Monthly</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/manual"
+            >Manual</a
+          >
+        </li>
+      </ul>
+
+      <div
+        *ngIf="currentUser$ | async as user"
+        class="justify-content-sm-center justify-content-start"
+      >
+        <div class="mt-0 mt-sm-3">
+          Logged as : <span class="fw-bold">{{ user.userName }}</span>
+        </div>
+      </div>
+      <div class="ms-0 ms-sm-4">
+        <div class="btn btn-primary btn-md mt-3" (click)="logout()">LogOut</div>
+      </div>
+    </div>
+  </div>
+</nav>

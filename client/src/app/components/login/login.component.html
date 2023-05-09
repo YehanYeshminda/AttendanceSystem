@@ -1,0 +1,51 @@
+<div class="mt-5">
+  <div class="row col-12 justify-content-center height-set-logo">
+    <img
+      class="logo-styles img-fluid justify-content-center"
+      src="./assets/logo.png"
+      alt="logo"
+    />
+  </div>
+
+  <div class="row col-12 text-center">
+    <label class="font-bold-set">WELCOME</label>
+    <label class="font-bold-set-with-italic">THINKVIEW ATTENDANCE</label>
+  </div>
+
+  <div class="mt-5">
+    <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && login()">
+      <div class="row col-12 justify-content-center">
+        <div class="row col-10 col-sm-8 col-md-6 col-lg-3">
+          <app-input-form
+            [formControl]="$any(loginForm.controls['username'])"
+            [label]="'Username'"
+            [haveLabel]="false"
+          ></app-input-form>
+        </div>
+      </div>
+
+      <div class="row col-12 justify-content-center">
+        <div class="row col-10 col-sm-8 col-md-6 col-lg-3">
+          <app-input-form
+            [formControl]="$any(loginForm.controls['password'])"
+            [label]="'Password'"
+            [haveLabel]="false"
+          ></app-input-form>
+        </div>
+      </div>
+
+      <div class="row col-12 justify-content-center mt-5">
+        <div
+          class="row col-7 col-sm-6 col-md-5 col-lg-2 justify-content-center"
+        >
+          <button
+            type="submit"
+            class="btn btn-warning text-white fw-bold w-100"
+          >
+            LOGIN
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

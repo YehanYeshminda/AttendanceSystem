@@ -1,0 +1,77 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6">
+      <h3 class="mb-4 fw-bolder">Manual Attendance</h3>
+    </div>
+    <div class="col-6 justify-content-end align-content-end d-flex">
+      <div class="col-5">
+        <input
+          type="file"
+          class="form-control"
+          (change)="onFileSelected($event)"
+          accept=".txt"
+        />
+        <button
+          type="button"
+          class="btn btn-warning mt-2"
+          (click)="onUpload()"
+          [disabled]="!selectedFile"
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="form.valid && click()">
+      <div class="d-flex gap-4" *ngIf="employees$ | async as employee">
+        <app-typeahead-form
+          [label]="'Reg No'"
+          [data]="employeeIds"
+          [formControl]="$any(form.controls['regNo'])"
+        ></app-typeahead-form>
+      </div>
+
+      <div class="d-flex gap-4">
+        <app-input-form
+          class="w-25"
+          [readOnly]="true"
+          [label]="'Name'"
+          [formControl]="$any(form.controls['userName'])"
+        ></app-input-form>
+      </div>
+
+      <div class="d-flex gap-4">
+        <app-input-form
+          class="w-25"
+          [readOnly]="true"
+          [label]="'Enroll No'"
+          [formControl]="$any(form.controls['enrollNo'])"
+        ></app-input-form>
+      </div>
+
+      <div class="d-flex gap-4">
+        <app-date-form
+          [label]="'Date of Attendance'"
+          class="w-25"
+          [formControl]="$any(form.controls['attendanceDate'])"
+        ></app-date-form>
+        <timepicker formControlName="inTimeDate"></timepicker>
+      </div>
+
+      <div class="d-flex gap-4">
+        <app-input-form
+          [label]="'Reason'"
+          class="w-25"
+          [formControl]="$any(form.controls['reason'])"
+        ></app-input-form>
+      </div>
+
+      <div class="d-flex gap-4">
+        <button class="btn btn-primary" type="submit">
+          Upload Manual Attendance
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

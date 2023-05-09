@@ -1,0 +1,90 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <div class="row">
+    <form [formGroup]="searchForm" (ngSubmit)="searchForm.valid && loadData()">
+      <div class="col-3">
+        <app-date-form
+          [label]="'Search Date'"
+          [formControl]="$any(searchForm.controls['searchDate'])"
+        ></app-date-form>
+      </div>
+      <div class="row">
+        <div class="col-1">
+          <button class="btn btn-primary w-100">Load</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      <table class="table" *ngIf="attendance$">
+        <thead>
+          <tr class="text-center">
+            <th scope="col"></th>
+            <th scope="col" class="text-decoration-underline">Date</th>
+            <th scope="col" class="text-decoration-underline">InTime</th>
+            <th scope="col" class="text-decoration-underline">OutTime</th>
+            <th scope="col" class="text-decoration-underline"></th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of attendance$ | async">
+            <td class="set-width-items">
+              <img
+                class="img-fluid"
+                [src]="
+                  imageUrlMap.get(item.regNo)
+                    ? imageUrlMap.get(item.regNo)
+                    : './assets/logo.png'
+                "
+                alt="Item Image"
+              />
+            </td>
+            <td class="fw-bold">
+              <div class="mt-4">{{ item.date | date : "EEEE" }}</div>
+            </td>
+            <td class="fw-bold">
+              <div class="mt-4">
+                {{ item.inTime | date : "h:mm:ss a" }}
+              </div>
+            </td>
+            <td class="fw-bold">
+              <div class="mt-4">
+                {{ item.outTime | date : "h:mm:ss a" }}
+              </div>
+            </td>
+            <td class="text-center">
+              <div class="d-flex justify-content-center align-items-center">
+                <button
+                  class="btn btn-success mt-4"
+                  *ngIf="item.inTime && item.outTime"
+                >
+                  Present
+                </button>
+                <button
+                  class="btn btn-danger mt-4"
+                  *ngIf="!item.inTime && !item.outTime"
+                >
+                  Present
+                </button>
+                <button
+                  class="btn btn-danger mt-4"
+                  *ngIf="item.inTime && !item.outTime"
+                >
+                  Did not check out
+                </button>
+
+                <button
+                  class="btn btn-danger mt-4"
+                  *ngIf="!item.inTime && item.outTime"
+                >
+                  Did not check in
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

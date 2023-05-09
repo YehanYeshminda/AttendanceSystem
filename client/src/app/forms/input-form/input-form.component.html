@@ -1,0 +1,40 @@
+<div class="mb-3 flex-container">
+  <label class="fw-bolder mb-1 ms-1" *ngIf="haveLabel">{{ label }}</label>
+
+  <input
+    [class.is-invalid]="control.touched && control.invalid"
+    type="{{ type }}"
+    class="form-control"
+    [style.width]="lengthOfInput"
+    placeholder="{{ label }}"
+    [formControl]="control"
+    [readOnly]="readOnly"
+  />
+
+  <div class="invalid-feedback" *ngIf="control.errors?.['required']">
+    Please enter a {{ label }}
+  </div>
+
+  <div class="invalid-feedback" *ngIf="control.errors?.['max']">
+    Only maximum upto 1
+  </div>
+
+  <div class="invalid-feedback" *ngIf="control.errors?.['minlength']">
+    {{ label }} must be atleast
+    {{control.errors?.['minlength'].requiredLength}} characters
+  </div>
+
+  <div class="invalid-feedback" *ngIf="control.errors?.['maxlength']">
+    {{ label }} must be most
+    {{control.errors?.['maxlength'].requiredLength}} characters
+  </div>
+
+  <div class="invalid-feedback" *ngIf="control.errors?.['notMatching']">
+    Passwords do not match
+  </div>
+
+  <div class="invalid-feedback" *ngIf="control.errors?.['pattern']">
+    Password must contain at least one symbol, one digit, and one uppercase
+    letter
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <div>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="openModalWithComponent()"
+    >
+      Create new employee
+    </button>
+  </div>
+
+  <div class="mt-5">
+    <div class="row">
+      <table class="table" *ngIf="employee$">
+        <thead>
+          <tr class="text-center">
+            <th scope="col"></th>
+            <th scope="col" class="text-decoration-underline">RegNo</th>
+            <th scope="col" class="text-decoration-underline">EnrollNo</th>
+            <th scope="col" class="text-decoration-underline">Username</th>
+            <th scope="col" class="text-decoration-underline">Designation</th>
+            <th scope="col" class="text-decoration-underline">Date Of Birth</th>
+            <th scope="col" class="text-decoration-underline">Date of Join</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of employee$ | async">
+            <td class="set-width-items">
+              <img
+                class="img-fluid"
+                [src]="
+                  imageUrlMap.get(item.regNo)
+                    ? imageUrlMap.get(item.regNo)
+                    : './assets/logo.png'
+                "
+                alt="Item Image"
+              />
+            </td>
+            <td class="fw-bold">
+              <div class="mt-5">{{ item.regNo }}</div>
+            </td>
+            <td class="fw-bold">
+              <div class="mt-5">{{ item.enrollNo }}</div>
+            </td>
+            <td class="fw-bold">
+              <div class="mt-5">{{ item.username | titlecase }}</div>
+            </td>
+
+            <td class="fw-bold">
+              <div class="mt-5">{{ item.designation | titlecase }}</div>
+            </td>
+
+            <td class="fw-bold">
+              <div class="mt-5">{{ item.dateOfBirth | date }}</div>
+            </td>
+
+            <td class="fw-bold">
+              <div class="mt-5">{{ item.dateOfJoin | date }}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

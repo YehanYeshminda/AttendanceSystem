@@ -1,0 +1,25 @@
+.db-catergories-section {
+}
+
+.png-color {
+  background-color: #01305e;
+  padding: 20px;
+}
+
+.db-catergories-section {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  gap: 50px;
+
+  @media only screen and (max-width: 394px) {
+    justify-content: center;
+  }
+}
+
+.db-card-customs {
+  width: 10rem;
+  height: 250px;
+}
