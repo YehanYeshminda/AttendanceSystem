@@ -41,26 +41,5 @@ export class EmployeeDashboardComponent implements OnInit {
 
   loadEmployees() {
     this.employee$ = this.employeeService.getEmployees();
-
-    this.employee$.subscribe((employees) => {
-      for (const employee of employees) {
-        if (employee.pictureUrl) {
-          ImageService.getImage(this.http, employee.pictureUrl).subscribe({
-            next: (res) => {
-              if (res instanceof Blob) {
-                const blobUrl = URL.createObjectURL(res);
-                const safeUrl = this.sanitizer.bypassSecurityTrustUrl(blobUrl);
-                this.imageUrlMap.set(employee.regNo, safeUrl);
-              } else {
-                console.log('Invalid response type, expected Blob');
-              }
-            },
-            error: (err) => {
-              console.error(err);
-            },
-          });
-        }
-      }
-    });
   }
 }

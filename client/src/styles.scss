@@ -4,3 +4,11 @@
 body {
   font-family: "Nanum Gothic", sans-serif;
 }
+
+.responsive-text {
+  font-size: 1rem;
+
+  @media (max-width: 575px) {
+    font-size: 0.9rem;
+  }
+}

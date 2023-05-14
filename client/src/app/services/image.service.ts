@@ -9,7 +9,7 @@ export class ImageService {
   constructor(private http: HttpClient) {}
 
   static getImage(http: HttpClient, imageUrl: string): Observable<Blob> {
-    return http.get('https://localhost:7228/api/employee/images/' + imageUrl, {
+    return http.get('http://aruna007-002-site30.etempurl.com/api/' + imageUrl, {
       responseType: 'blob',
     });
   }

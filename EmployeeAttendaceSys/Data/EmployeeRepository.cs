@@ -44,7 +44,7 @@ namespace EmployeeAttendaceSys.Data
         public async Task<string> GetEmployeeImageUrlAsync(string regNo)
         {
             Employee employee = await _context.Employees.FirstOrDefaultAsync(x => x.RegNo == regNo);
-            return employee?.PictureUrl;
+            return employee?.PictureUrl != null ? Convert.ToBase64String(employee.PictureUrl) : null;
         }
 
         public async Task<IEnumerable<Employee>> GetEmployeesByRegNo(string regNo)

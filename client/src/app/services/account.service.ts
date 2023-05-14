@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AccountService {
-  baseUrl: string = 'https://localhost:7228/api/';
+  baseUrl: string = 'http://aruna007-002-site30.etempurl.com/api/';
   private currentSourceUser = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentSourceUser.asObservable();
 

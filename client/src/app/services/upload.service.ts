@@ -7,10 +7,7 @@ import { Injectable } from '@angular/core';
 export class UploadService {
   constructor(private http: HttpClient) {}
 
-  uploadFile(file: File) {
-    const formData = new FormData();
-    formData.append('file', file);
-
+  uploadFile(formData: FormData) {
     return this.http.post<any>(
       'https://localhost:7228/api/attendance/upload-data',
       formData

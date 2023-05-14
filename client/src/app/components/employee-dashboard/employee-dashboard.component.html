@@ -31,11 +31,11 @@
               <img
                 class="img-fluid"
                 [src]="
-                  imageUrlMap.get(item.regNo)
-                    ? imageUrlMap.get(item.regNo)
+                  item.pictureUrl
+                    ? 'data:image/png;base64,' + item.pictureUrl
                     : './assets/logo.png'
                 "
-                alt="Item Image"
+                alt="Employee Picture"
               />
             </td>
             <td class="fw-bold">

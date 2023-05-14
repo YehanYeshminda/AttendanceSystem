@@ -117,8 +117,8 @@ namespace EmployeeAttendaceSys.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("PictureUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("PictureUrl")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("RegNo")
                         .HasMaxLength(20)

@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { SafeUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,7 +8,6 @@ import { Attendance } from 'src/app/models/attendance';
 import { SearchEmployeeOnRegNoInOutTime } from 'src/app/models/customSearches';
 import { AttendanceService } from 'src/app/services/attendance.service';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-employee-monthly',
@@ -30,9 +28,7 @@ export class EmployeeMonthlyComponent implements OnInit {
     private fb: FormBuilder,
     private attendanceService: AttendanceService,
     private employeeService: EmployeeService,
-    private toastr: ToastrService,
-    private http: HttpClient,
-    private sanitizer: DomSanitizer
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -109,29 +105,12 @@ export class EmployeeMonthlyComponent implements OnInit {
         )
         .subscribe(
           (attendanceData: Attendance[]) => {
-            this.attendance$ = of(attendanceData); // update the observable with the filtered data
+            this.attendance$ = of(attendanceData);
             for (const attendance of attendanceData) {
               if (attendance.userName) this.username = attendance.userName;
 
               if (attendance.pictureUrl) {
-                ImageService.getImage(
-                  this.http,
-                  attendance.pictureUrl
-                ).subscribe({
-                  next: (res) => {
-                    const blobUrl = URL.createObjectURL(res);
-                    const safeUrl =
-                      this.sanitizer.bypassSecurityTrustUrl(blobUrl);
-                    this.imageUrl = safeUrl;
-                  },
-                  error: (err) => {
-                    console.error(err);
-                    this.toastr.error(
-                      'An error occurred while loading the image for ' +
-                        attendance.regNo
-                    );
-                  },
-                });
+                this.imageUrl = attendance.pictureUrl;
               }
             }
           },

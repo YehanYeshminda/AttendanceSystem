@@ -65,21 +65,17 @@ namespace EmployeeAttendaceSys.Controllers
             if (employeesAlreadyExisting != null)
             {
                 return BadRequest("Employee with Registration Number Already Exists");
-            }   
+            }
 
             var employee = _mapper.Map<Employee>(createEmployeeDto);
 
             if (createEmployeeDto.File != null && createEmployeeDto.File.Length > 0)
             {
-                string fileName = $"{Guid.NewGuid()}{Path.GetExtension(createEmployeeDto.File.FileName)}";
-                string filePath = Path.Combine(_hostEnvironment.ContentRootPath, "images", fileName);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                using (var ms = new MemoryStream())
                 {
-                    await createEmployeeDto.File.CopyToAsync(fileStream);
+                    await createEmployeeDto.File.CopyToAsync(ms);
+                    employee.PictureUrl = ms.ToArray();
                 }
-
-                employee.PictureUrl = fileName;
             }
 
             _employeeRepository.AddEmployee(employee);

@@ -3,12 +3,15 @@
 <div class="container mt-2">
   <div class="row">
     <div class="d-flex justify-content-between row w-100 mb-5">
-      <div class="col-6">
+      <div class="col-12 col-sm-6">
         <form
           [formGroup]="searchForm"
           (ngSubmit)="searchForm.valid && loadData()"
         >
-          <div class="col-12 d-flex gap-4" *ngIf="employeeIds.length > 0">
+          <div
+            class="col-12 col-sm-6 d-flex gap-4"
+            *ngIf="employeeIds.length > 0"
+          >
             <div class="d-flex gap-4">
               <app-typeahead-form
                 [label]="'Reg No'"
@@ -17,26 +20,28 @@
               ></app-typeahead-form>
             </div>
 
-            <label class="fw-bold" *ngIf="username != ''"
-              >Username : {{ username }}</label
-            >
+            <div class="d-flex flex-row w-100">
+              <label class="fw-bold w-100" *ngIf="username != ''"
+                >Username: <span>{{ username }}</span>
+              </label>
+            </div>
           </div>
 
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <app-date-form
               [label]="'Start date'"
               [formControl]="$any(searchForm.controls['inTime'])"
             ></app-date-form>
           </div>
 
-          <div class="col-6">
+          <div class="col-12 col-sm-6">
             <app-date-form
               [label]="'End Date'"
               [formControl]="$any(searchForm.controls['endTime'])"
             ></app-date-form>
           </div>
           <div class="row">
-            <div class="col-2">
+            <div class="col-4 col-sm-2">
               <button class="btn btn-primary w-100">Load</button>
             </div>
           </div>
@@ -44,43 +49,51 @@
       </div>
 
       <div
-        class="col-6 d-flex justify-content-center align-items-center"
+        class="col-12 col-sm-6 mt-3 mt-sm-0 d-flex justify-content-center align-items-center"
         *ngIf="imageUrl !== '' && (attendance$ | async) !== null"
       >
-        <img [src]="imageUrl" class="img-fluid w-50" alt="image" />
+        <img
+          class="img-fluid w-50"
+          [src]="
+            imageUrl ? 'data:image/png;base64,' + imageUrl : './assets/logo.png'
+          "
+          alt="Employee Picture"
+        />
       </div>
     </div>
 
-    <div class="row">
+    <div class="row table-responsive">
       <table class="table" *ngIf="attendance$">
         <thead>
           <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Day of the week</th>
-            <th scope="col">InTime</th>
-            <th scope="col">OutTme</th>
-            <th scope="col"></th>
+            <th scope="col responsive-text">Date</th>
+            <th scope="col responsive-text">Day</th>
+            <th scope="col responsive-text">InTime</th>
+            <th scope="col responsive-text">OutTme</th>
+            <th scope="col responsive-text"></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of attendance$ | async">
             <td class="fw-bold d-flex">
-              <div class="mt-2">{{ item.date | date : "MMM d, y" }}</div>
+              <div class="mt-2 responsive-text w-100">
+                {{ item.date | date : "MMM d, y" }}
+              </div>
             </td>
 
             <td class="fw-bold">
-              <div class="mt-2">
+              <div class="mt-2 responsive-text w-100">
                 {{ item.inTime | date : "EEEE" }}
               </div>
             </td>
 
             <td class="fw-bold">
-              <div class="mt-2">
+              <div class="mt-2 responsive-text w-100">
                 {{ item.inTime | date : "h:mm:ss a" }}
               </div>
             </td>
             <td class="fw-bold">
-              <div class="mt-2">
+              <div class="mt-2 responsive-text w-100">
                 {{ item.outTime | date : "h:mm:ss a" }}
               </div>
             </td>
@@ -98,10 +111,10 @@
                 Present
               </button>
               <button
-                class="btn btn-danger mt-2"
+                class="btn btn-danger mt-2 responsive-text"
                 *ngIf="item.inTime && !item.outTime"
               >
-                Did not check out
+                Didnt check out
               </button>
               <button
                 class="btn btn-danger mt-2"

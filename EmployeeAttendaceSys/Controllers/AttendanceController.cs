@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Data;
+using AutoMapper;
 using EmployeeAttendaceSys.Data;
 using EmployeeAttendaceSys.Dtos;
 using EmployeeAttendaceSys.Entities;
@@ -10,7 +11,6 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Data;
 
 namespace EmployeeAttendaceSys.Controllers
 {
@@ -143,7 +143,7 @@ namespace EmployeeAttendaceSys.Controllers
                 var outTimeDate = await _attendanceRepository.GetOutTimeNumberAsync(regno, onDate.StartDate);
                 var dateByRegNo = await _attendanceRepository.GetDateByRegNoAsync(regno);
 
-                var attendanceDto = new GetDailyAttendanceDto   
+                var attendanceDto = new GetDailyAttendanceDto
                 {
                     RegNo = regno,
                     PictureUrl = imageUrl,
@@ -213,7 +213,7 @@ namespace EmployeeAttendaceSys.Controllers
 
 
         [HttpPost("upload-data")]
-        public async Task<IActionResult> UploadData(IFormFile file)
+        public async Task<IActionResult> UploadData([FromForm(Name = "file")] IFormFile file)
         {
             if (file == null || file.Length <= 0)
                 return BadRequest("No file was uploaded.");
@@ -250,7 +250,6 @@ namespace EmployeeAttendaceSys.Controllers
 
                     foreach (var user in users)
                     {
-                        Console.WriteLine(user.RegNo);
                         user.EnrollNo = user.RegNo;
                         user.InTime = DateTime.Parse(user.InTime.ToString());
                         user.Status = 0;
@@ -263,9 +262,10 @@ namespace EmployeeAttendaceSys.Controllers
                 }
 
                 await _context.SaveChangesAsync();
-            }
-
+                
                 return Ok("Data uploaded and processed successfully.");
             }
         }
+
+    }
 }

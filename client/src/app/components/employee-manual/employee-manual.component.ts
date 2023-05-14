@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, map, of, startWith } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Employee } from 'src/app/models/employee';
 import { AttendanceService } from 'src/app/services/attendance.service';
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -76,6 +75,9 @@ export class EmployeeManualComponent implements OnInit {
         this.toastr.success('Attendance added successfully');
         this.form.reset();
       },
+      error: (error) => {
+        this.toastr.error('Attendance added failed');
+      },
     });
   }
 
@@ -100,11 +102,11 @@ export class EmployeeManualComponent implements OnInit {
   onUpload(): void {
     if (this.selectedFile) {
       const formData = new FormData();
-      formData.append('file', this.selectedFile);
+      formData.append('file', this.selectedFile, this.selectedFile.name);
 
       if (this.selectedFile) {
-        this.uploadService.uploadFile(this.selectedFile).subscribe({
-          next: (reponse) => {
+        this.uploadService.uploadFile(formData).subscribe({
+          next: (response) => {
             this.toastr.error('File upload failed');
           },
           error: (error) => {

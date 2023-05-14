@@ -21,6 +21,6 @@ namespace EmployeeAttendaceSys.Entities
         public DateTime DateOfJoin { get; set; }
         public DateTime DateOfBirth { get; set; }
         public byte Status { get; set; } = 0;
-        public string PictureUrl { get; set; }
+        public byte[] PictureUrl { get; set; }
     }
 }
